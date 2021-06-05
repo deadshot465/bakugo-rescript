@@ -1,0 +1,1 @@
+type presence_status_data = string
