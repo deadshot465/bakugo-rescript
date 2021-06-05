@@ -1,4 +1,3 @@
-open Client
 open ClientOptions
 open WebSocketOptions
 
@@ -29,8 +28,8 @@ let () = {
         switch user {
             | None => ()
             | Some(u) => {
-                let id = ClientUser.ClientUser.get_id(u)
-                let username = switch ClientUser.ClientUser.get_username(u) {
+                let id = ClientUser.get_id(u)
+                let username = switch ClientUser.get_username(u) {
                     | None => ""
                     | Some(n) => n
                 }
@@ -41,7 +40,7 @@ let () = {
                     Js.log("Setting presence...")
                     let index = Random.int(Array.length(Constants.presences))
                     let activity = Constants.presences[index]
-                    let _ = ClientUser.ClientUser.set_presence(u, {
+                    let _ = ClientUser.set_presence(u, {
                         status: "online",
                         activity: {
                             "name": activity,

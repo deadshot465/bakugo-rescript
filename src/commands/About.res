@@ -1,5 +1,3 @@
-open MessageEmbed
-
 let about = (message: Message.message) => {
     let embed = ref(MessageEmbed.make())
     embed := MessageEmbed.set_color(embed.contents, Constants.bakugo_color)
@@ -16,7 +14,7 @@ let about = (message: Message.message) => {
     embed := MessageEmbed.set_thumbnail(embed.contents, Constants.rescript_logo)
     embed := MessageEmbed.set_author(embed.contents, `僕のヒーローアカデミアの爆豪勝己`, Some(Constants.bakugo_icon), None)
 
-    let _ = TextChannel.TextChannel.send(message.channel, None, Some({
+    let _ = TextChannel.send(message.channel, None, Some({
         content: None,
         embed: Some(embed.contents)
     }))
