@@ -14,7 +14,7 @@ let options = {
     fetchAllMembers: true
 }
 
-let cmds = Js.Dict.fromArray([("about", About.about)])
+let cmds = Js.Dict.fromArray([("about", About.about), ("ping", Ping.ping)])
 
 let () = {
     Random.self_init()
@@ -62,8 +62,6 @@ let () = {
             | Some(m) => {
                 if Js.String.startsWith(prefix, m) {
                     let prefix_length = String.length(prefix)
-                    print_endline(m)
-                    print_endline(string_of_int(prefix_length))
                     let args = String.sub(m, prefix_length, String.length(m) - prefix_length)
                     |> String.trim |> String.split_on_char(' ')
                     |> Array.of_list

@@ -1,1 +1,1 @@
-type presence_t
+type presence
