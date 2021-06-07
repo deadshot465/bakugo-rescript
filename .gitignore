@@ -5,3 +5,4 @@
 .merlin
 *.bs.js
 .env
+assets/randomResponses.json
