@@ -10,7 +10,7 @@ let about = (message: Message.message) => {
 [ReScript](https://rescript-lang.org/)と[Discord.js](https://discord.js.org/)ライブラリ。`
 
     embed := MessageEmbed.set_description(embed.contents, description)
-    embed := MessageEmbed.set_footer(embed.contents, `爆豪ボット：リリース 0.3.0 | 2021-06-05`, None)
+    embed := MessageEmbed.set_footer(embed.contents, `爆豪ボット：リリース 0.3.0 | 2021-06-08`, None)
     embed := MessageEmbed.set_thumbnail(embed.contents, Constants.rescript_logo)
     embed := MessageEmbed.set_author(embed.contents, `僕のヒーローアカデミアの爆豪勝己`, Some(Constants.bakugo_icon), None)
 
