@@ -14,7 +14,7 @@ let options = {
 }
 
 let cmds = Js.Dict.fromArray([("about", About.about), ("ping", Ping.ping),
-("response", Response.response)])
+("response", Response.response), ("eval", Eval.evaluate)])
 
 let () = {
     Random.self_init()
@@ -71,7 +71,13 @@ let () = {
                     } else {
                         let cmd = String.lowercase_ascii(args[0])
                         switch Js.Dict.get(cmds, cmd) {
-                            | None => ()
+                            | None => {
+                                if Js.String.startsWith("eval", cmd) {
+                                    Js.Dict.unsafeGet(cmds, "eval")(msg)
+                                } else {
+                                    ()
+                                }
+                            }
                             | Some(inner_cmd) => inner_cmd(msg)
                         }
                     }
