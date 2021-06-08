@@ -3,7 +3,7 @@ open WebSocketOptions
 
 type interval_id
 
-@module("DotEnv") external config_env: unit => unit = "config"
+@module("dotenv") external config_env: unit => unit = "config"
 @val external set_interval: (unit => unit, int) => interval_id = "setInterval"
 
 let options = {
