@@ -22,13 +22,14 @@ let () = {
     let token = Util.env->Js.Dict.unsafeGet("TOKEN")
     let prefix = Util.env->Js.Dict.unsafeGet("PREFIX")
     let c = Client.make(Some(options))
+    let id = ref("")
     c->Client.once(#ready(() => {
         Js.log("Connected.")
         let user = Client.get_user(c)
         switch user {
             | None => ()
             | Some(u) => {
-                let id = ClientUser.get_id(u)
+                id := ClientUser.get_id(u)
                 let username = switch ClientUser.get_username(u) {
                     | None => ""
                     | Some(n) => n
@@ -60,6 +61,12 @@ let () = {
         switch msg.content {
             | None => ()
             | Some(m) => {
+                if Js.String.includes(id.contents, m) {
+                    let index = Random.int(Array.length(Response.random_responses.contents))
+                    let random_response = Response.random_responses.contents[index]
+                    let _ = Message.reply(msg, Some(random_response), None)
+                }
+
                 if Js.String.startsWith(prefix, m) {
                     let prefix_length = String.length(prefix)
                     let args = String.sub(m, prefix_length, String.length(m) - prefix_length)
