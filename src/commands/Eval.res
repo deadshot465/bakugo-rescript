@@ -60,7 +60,10 @@ let try_get_eval_result = (~max_attempts=max_attempts) => client => token => {
                 } else {
                     Js.Promise.resolve(Some(p))
                 }
-                | _ when p.status_id == 2 => get(client', token', remains - 1)
+                | _ when p.status_id == 2 => {
+                    let _ = JsTimeout.set_timeout(() => (), 2000)
+                    get(client', token', remains - 1)
+                }
                 | _ => Js.Promise.resolve(Some(p))
             }
         }, response)
@@ -88,7 +91,7 @@ let generate_eval_embed = message => result => {
                     switch Js.Nullable.toOption(result.compile_output) {
                         | Some(output) => {
                             let msg = j`無個性のくせにヒーローになるわけねぇだろう！屋上から飛び降りで死ね！：${output}`
-                            let msg = if String.length(msg) > 2047 {
+                            let msg = if String.length(msg) > 2000 {
                                 String.sub(msg, 0, 2000)
                             } else {
                                 msg
@@ -114,7 +117,7 @@ let generate_eval_embed = message => result => {
                             switch GuildMember.get_display_name(guild_member) {
                                 | Some(display_name) => {
                                     let description = j`なんだこりゃ？ヴィランが言いそうなクソ痴話か、$display_name！\n\`\`\`bash\n$stdout\n\`\`\``
-                                    let description = if String.length(description) > 2047 {
+                                    let description = if String.length(description) > 2000 {
                                         String.sub(description, 0, 2000)
                                     } else {
                                         description
